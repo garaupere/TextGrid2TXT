@@ -1,14 +1,15 @@
 ## TextGrid2TXT ######################################################################################
-##																																																	##
+##												    																																			##
 ## A script to convert a TextGrid file into a TXT file containing all labeled text segments         ##
 ## It is a good tool to use Praat transcriptions in other corpus-text tools.                        ##
-## Pere Garau Borràs (2022)              																														##
-## GNU License																																											##
+## Pere Garau Borràs (2022) v. 1.1 								    	      																			##
+## GNU License											    																														##
 ######################################################################################################
 
 form Parse TextGrid to TXT file
-  sentence Path D:\20749. Revisió de Textos Orals i Escrits\Projecte\corpus_oral\arxius\
+  sentence Path ..\corpus_oral\arxius\
   integer Tier 1
+  sentence Pause xxx
 endform
 
 writeInfoLine: "Començam a transposar els TextGrids del directori: ", path$
@@ -28,13 +29,13 @@ for ifile to numberOfFiles
 	for i to intervals
 		select TextGrid 'file$'
 		label$ = Get label of interval: tier, i
-  		if label$ != "xxx"
+  		if label$ != pause$
 			result$ = label$
 			fileappend "'resultfile$'" 'result$'
-
+		endfor
 	select TextGrid 'file$'
 	endif
-	select Strings fileList
+	selectObject: "Strings fileList"
 endfor
 select all
 Remove
